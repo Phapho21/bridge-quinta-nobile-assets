@@ -1,19 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Bridge01</title>
-    
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Bridge Quinta Nobile - Quiz Duolingo</title>
+  <title>Bridge Quinta Nobile - Impara e Testa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <style>
     :root {
@@ -109,7 +98,7 @@
       color: var(--text-muted);
       line-height: 1.5;
       margin: 14px 0 26px;
-      background: #fefff8; /* nuovo colore descrizione */
+      background: #fefff8;
       padding: 16px 18px;
       border-radius: 16px;
       max-width: 320px;
@@ -500,14 +489,14 @@
       right: 16px;
       display: flex;
       gap: 8px;
-      justify-content: flex-start; /* Menu a sinistra */
+      justify-content: flex-start;
       max-width: 388px;
       margin: 0 auto;
       left: 50%;
       transform: translateX(-50%);
     }
     .btn-back {
-      background: #050a30; /* stesso colore dei bottoni principali */
+      background: #050a30;
       color: #fff;
       border: none;
       border-radius: 20px;
@@ -574,7 +563,6 @@
     <div class="header-title" onclick="goToWelcome()">Bridge Quinta Nobile</div>
     <div class="header-sub" id="headerSub"></div>
     <div class="progress-bar"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
-
     <!-- WELCOME -->
     <div class="screen active" id="welcomeScreen">
       <div class="welcome-screen">
@@ -688,6 +676,15 @@
             <div class="desc">7 esercizi con bottone “Mostra risposta”</div>
           </div>
         </div>
+
+        <!-- nuova voce per Indovina la licita 3 -->
+        <div class="menu-btn" onclick="goToGuessLicita3()">
+          <div class="emoji">🧠</div>
+          <div class="content">
+            <div class="title">Indovina la licita 3</div>
+            <div class="desc">7 esercizi su aperture e risposte 1SA</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -722,6 +719,13 @@
         <div id="guessLicita2"></div>
       </div>
     </div>
+
+    <!-- GUESS 3 -->
+    <div class="screen" id="guessLicitaScreen3">
+      <div class="quiz-screen">
+        <div id="guessLicita3"></div>
+      </div>
+    </div>
   </div>
 
   <div class="bottom-buttons" id="bottomButtons" style="display: none;">
@@ -735,7 +739,6 @@
       <img id="lightboxImage" src="" alt="Immagine ingrandita">
     </div>
   </div>
-
   <script>
     const quizData = [
       {
@@ -758,7 +761,7 @@
 Se non si possiedono né 4 carte di Fiori né 4 carte di Quadri si apre di 1 Fiori anche con sole 2 carte (Fiori preparatorio).`,
         domanda: "Quando si apre 1♦ (Quadri) invece di 1♣ (Fiori)?",
         risposte: [
-          "Quando non si ha nessun nobile quinto e neanche 4 carte di Fiori.",
+          "Quando si hanno almeno 4 Quadri e nessun nobile quinto.",
           "Quando si hanno almeno 4 Fiori.",
           "Solo se si ha un fit a Quadri."
         ],
@@ -823,7 +826,7 @@ SCOPO: trovare il fit (almeno 8 carte) in un seme nobile e giocare con briscola 
         descrizioneStudio: `Il fit è quando la coppia ha almeno 8 carte totali in uno stesso seme. Il fit è l'obiettivo primario della licitazione perché permette di giocare il contratto in atout.
 
 Senza fit nei nobili, si gioca preferibilmente, quando si hanno fermi in tutti i semi, a Senza Atout.`,
-        domanda: "Cosa significa \"fit in un nobile\"?",
+        domanda: "Cosa significa \"fit a un nobile\"?",
         risposte: [
           "Che la linea ha almeno 8 carte in quel seme nobile.",
           "Che si hanno almeno 8 punti onore.",
@@ -900,7 +903,7 @@ Per la manche occorrono 24-25 p.o. totali. Tutti gli altri sono contratti parzia
 La risposta 2 su 1 è forcing manche (es: 1Cuori/2Fiori – 1Picche/2Cuori).`,
         domanda: "Qual è una risposta forzante del rispondente?",
         risposte: [
-          "Cambio di colore (ad es. 1Quadri/1Cuori - 1Cuori/1Picche).",
+          "Cambio di colore (ad es. 1♥–2♣).",
           "Appoggio semplice nel seme dell'apertore.",
           "Passo."
         ],
@@ -1079,15 +1082,91 @@ Tecniche:
       }
     ];
 
+    const immaginiBase3 = [
+      {
+        id: "img11",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita11.png",
+        domanda: "Cosa licita l’apertore con queste carte?",
+        risposte: ["1 SA", "1 Quadri", "1 Fiori"],
+        corretta: 0
+      },
+      {
+        id: "img12",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita12.png",
+        domanda: "Su apertura di 1 SA, il rispondente con queste carte cosa licita?",
+        risposte: ["2 Fiori", "2 SA", "3 SA"],
+        corretta: 0
+      },
+      {
+        id: "img13",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita13.png",
+        domanda: "Su apertura di 1 SA, cosa si risponde con queste carte?",
+        risposte: ["3 SA", "2 Quadri", "2 Fiori"],
+        corretta: 0
+      },
+      {
+        id: "img14",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita14.png",
+        domanda: "Su apertura di 1 SA, cosa si risponde con queste carte (8 p.o.)?",
+        risposte: ["2 Cuori", "2 Picche", "2 SA"],
+        corretta: 0
+      },
+      {
+        id: "img15",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita15.png",
+        domanda: "Su apertura di 1 SA, cosa si risponde con queste carte?",
+        risposte: ["2 Quadri", "2 Cuori", "3 SA"],
+        corretta: 0
+      },
+      {
+        id: "img16",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita16.png",
+        domanda: "Su apertura di 1 SA, cosa si risponde con queste carte?",
+        risposte: ["2 Fiori", "2 Picche", "3 SA"],
+        corretta: 0
+      },
+      {
+        id: "img17",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita17.png",
+        domanda: "Dopo apertura di 1 SA, con queste carte il rispondente cosa licita?",
+        risposte: ["Passo", "2 Fiori", "2 SA"],
+        corretta: 0
+      }
+    ];
+
+    function shuffleAnswers(domanda) {
+      const withIndex = domanda.risposte.map((r, idx) => ({
+        testo: r,
+        indiceOriginale: idx
+      }));
+      withIndex.sort(() => Math.random() - 0.5);
+      const risposteMescolate = withIndex.map(r => r.testo);
+      const nuovaCorretta = withIndex.findIndex(r => r.indiceOriginale === domanda.corretta);
+      return { ...domanda, risposte: risposteMescolate, corretta: nuovaCorretta };
+    }
+
     const guessLicita1Data = immaginiBase.map((q, idx) => ({
-      ...q,
+      ...shuffleAnswers(q),
       id: `M${idx + 1}`,
       tipo: "multiple"
     }));
 
     const guessLicita2Data = immaginiBase
-      .map((q, idx) => ({ ...q, id: `R${idx + 1}`, tipo: "reveal" }))
+      .map((q, idx) => ({ ...shuffleAnswers(q), id: `R${idx + 1}`, tipo: "reveal" }))
       .sort(() => Math.random() - 0.5);
+
+    const guessLicita3Data = immaginiBase3.map((q, idx) => ({
+      ...shuffleAnswers(q),
+      id: `L3_${idx + 1}`,
+      tipo: "multiple"
+    }));
 
     const quiz = quizData.map(q => {
       const risposteConIndici = q.risposte.map((r, idx) => ({ testo: r, indiceOriginale: idx }));
@@ -1157,6 +1236,13 @@ Tecniche:
       renderGuessLicita('guessLicita2', guessLicita2Data);
       document.getElementById('bottomButtons').style.display = 'flex';
       document.getElementById('headerSub').textContent = 'Indovina la licita 2 • Bridge Quinta Nobile';
+    }
+    function goToGuessLicita3() {
+      testType = 'guess3';
+      showScreen('guessLicitaScreen3');
+      renderGuessLicita('guessLicita3', guessLicita3Data);
+      document.getElementById('bottomButtons').style.display = 'flex';
+      document.getElementById('headerSub').textContent = 'Indovina la licita 3 • Bridge Quinta Nobile';
     }
 
     function renderStudy() {
@@ -1283,7 +1369,10 @@ Tecniche:
     }
 
     function selectChoiceLicita(containerId, p, c) {
-      const data = containerId === 'guessLicita1' ? guessLicita1Data : guessLicita2Data;
+      const data =
+        containerId === 'guessLicita1' ? guessLicita1Data :
+        containerId === 'guessLicita2' ? guessLicita2Data :
+        guessLicita3Data;
       const correctIndex = data[p].corretta;
       const buttons = document.querySelectorAll(`#${containerId}-choices${p} .choice-btn`);
       buttons.forEach((btn, idx) => {
@@ -1338,8 +1427,14 @@ Tecniche:
           alert("Hai completato il quiz!");
         }
       } else {
-        const data = testType === 'guess1' ? guessLicita1Data : guessLicita2Data;
-        const containerId = testType === 'guess1' ? 'guessLicita1' : 'guessLicita2';
+        const data =
+          testType === 'guess1' ? guessLicita1Data :
+          testType === 'guess2' ? guessLicita2Data :
+          guessLicita3Data;
+        const containerId =
+          testType === 'guess1' ? 'guessLicita1' :
+          testType === 'guess2' ? 'guessLicita2' :
+          'guessLicita3';
         if (paginaCorrente < data.length - 1) {
           showGuessPage(containerId, paginaCorrente + 1, data.length);
         } else {
@@ -1354,8 +1449,14 @@ Tecniche:
           showPage(paginaCorrente - 1);
         }
       } else {
-        const data = testType === 'guess1' ? guessLicita1Data : guessLicita2Data;
-        const containerId = testType === 'guess1' ? 'guessLicita1' : 'guessLicita2';
+        const data =
+          testType === 'guess1' ? guessLicita1Data :
+          testType === 'guess2' ? guessLicita2Data :
+          guessLicita3Data;
+        const containerId =
+          testType === 'guess1' ? 'guessLicita1' :
+          testType === 'guess2' ? 'guessLicita2' :
+          'guessLicita3';
         if (paginaCorrente > 0) {
           showGuessPage(containerId, paginaCorrente - 1, data.length);
         }
@@ -1376,8 +1477,4 @@ Tecniche:
     goToWelcome();
   </script>
 </body>
-</html>
-    
-  </body>
-  
 </html>
