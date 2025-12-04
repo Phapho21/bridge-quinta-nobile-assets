@@ -512,6 +512,23 @@
       box-shadow: 0 1px 0 rgba(0,0,0,0.4);
     }
 
+    .credits {
+      position: fixed;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .credits a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .credits a:hover {
+      text-decoration: underline;
+    }
+
     #imageLightbox {
       position: fixed;
       inset: 0;
@@ -732,6 +749,11 @@
     <button class="btn-back" onclick="goToMenu()">← Menu</button>
   </div>
 
+  <div class="credits">
+    creato da
+    <a href="mailto:madsigns.it@googglemail.com">Madsigns</a>
+  </div>
+
   <div id="imageLightbox">
     <div class="lightbox-backdrop" onclick="closeLightbox()"></div>
     <div class="lightbox-content">
@@ -894,9 +916,7 @@ Le dichiarazioni del rispondente possono essere:
       {
         titolo: "Risposte forzanti e non forzanti",
         modulo: 1,
-        descrizioneStudio: `L'unica risposta forzante del rispondente è il cambio di colore. Tutte le altre sono non forzanti.
-
-Gli appoggi nel seme dell'apertore sono non forzanti.
+        descrizioneStudio: `L'unica risposta forzante del rispondente è il cambio di colore. Tutte le altre sono non forzanti.... Gli appoggi nel seme dell'apertore sono non forzanti.
 
 Per la manche occorrono 24-25 p.o. totali. Tutti gli altri sono contratti parziali.
 
