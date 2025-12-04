@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Bridge01</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Bridge Quinta Nobile - Quiz Duolingo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card-bg: #ffffff;
+      --accent: #58cc02;
+      --accent-dark: #46a302;
+      --blue: #319fff;
+      --text-main: #1f2933;
+      --text-muted: #6b778c;
+      --border-soft: #e1e7f0;
+      --btn-text: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .app-shell {
+      width: 100%;
+      max-width: 420px;
+    }
+    .header-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .header-title:hover { color: var(--blue); }
+    .header-sub {
+      font-size: 0.85rem;
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      border-radius: 4px;
+      background: #dbecdd;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      background: var(--accent-dark);
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+    .screen { display: none; animation: fadeIn 0.4s ease-in-out; }
+    .screen.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* WELCOME PAGE */
+    .welcome-screen {
+      text-align: center;
+      padding: 40px 20px 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 500px;
+    }
+    .welcome-hero-card {
+      margin: 10px 0 18px;
+      padding: 4px;
+    }
+    .welcome-hero-logo {
+      display: block;
+      width: 60vw;
+      max-width: 260px;
+      height: auto;
+      margin: 0 auto;
+    }
+    .welcome-big-headline {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: 8px 0 10px;
+    }
+    .welcome-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 14px 0 26px;
+      background: #fefff8; /* nuovo colore descrizione */
+      padding: 16px 18px;
+      border-radius: 16px;
+      max-width: 320px;
+    }
+    .welcome-cta {
+      margin-top: 24px;
+      margin-left: auto;
+      margin-right: auto;
+      display: inline-block;
+    }
+
+    .menu-screen {
+      padding: 40px 20px 100px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .menu-screen h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 20px 0 10px;
+      text-align: center;
+    }
+    .menu-screen .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .menu-btn {
+      background: var(--card-bg);
+      border: 2px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 20px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .menu-btn:hover {
+      border-color: var(--blue);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+      transform: translateY(-2px);
+    }
+    .menu-btn .emoji {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 2px;
+    }
+    .menu-btn .content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+    .menu-btn .title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-align: left;
+    }
+    .menu-btn .desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: left;
+    }
+
+    .test-choice-screen {
+      padding: 40px 20px 100px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .test-choice-screen h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 20px 0 10px;
+      text-align: center;
+    }
+
+    .quiz-screen {
+      padding: 20px;
+      padding-bottom: 100px;
+    }
+    .quiz-screen h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 20px 0 8px;
+      text-align: center;
+    }
+    .quiz-screen .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .study-screen {
+      padding: 20px;
+      padding-bottom: 100px;
+    }
+    .study-screen h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 20px 0 8px;
+      text-align: center;
+    }
+    .study-screen .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .study-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .study-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+      transition: all 0.2s ease;
+    }
+    .study-card:hover {
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+      transform: translateY(-1px);
+    }
+    .study-card .number {
+      font-size: 0.75rem;
+      color: var(--accent-dark);
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .study-card .title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #228b22;
+      margin-bottom: 8px;
+    }
+    .study-card .description {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .pagina {
+      display: none;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      padding: 20px 16px 120px 16px;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 350px;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+    .pagina.active { display: block; }
+    .pagina-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .modulo-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-dark);
+      background: rgba(88, 204, 2, 0.08);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .progress {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .pagina-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #228b22;
+    }
+    .pagina-image-wrapper {
+      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .pagina-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+    }
+    .domanda {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin: 10px 0 12px 0;
+      text-align: center;
+    }
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .choice-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 2px solid var(--border-soft);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+    .choice-btn:hover:not(:disabled) {
+      background: #f0f4f8;
+      border-color: var(--blue);
+    }
+    .choice-btn.selected {
+      border: 2px solid var(--blue);
+      background: #eaf3fd;
+    }
+    .choice-btn.correct {
+      background: #e2fbe2;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+    .choice-btn.incorrect {
+      background: #ffecec;
+      border-color: #ff6060;
+    }
+    .choice-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.8;
+    }
+
+    .reveal-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .reveal-btn {
+      background: var(--accent);
+      color: var(--btn-text);
+      border: none;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(88, 204, 2, 0.3);
+    }
+    .reveal-btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(88, 204, 2, 0.4);
+    }
+    .answer-box {
+      background: #e2fbe2;
+      border: 2px solid var(--accent);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 12px;
+      display: none;
+    }
+    .answer-box.show {
+      display: block;
+      animation: slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .answer-box .answer-title {
+      font-weight: 700;
+      color: #228b22;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+    .answer-box .answer-text {
+      font-size: 0.9rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+    .result-feedback {
+      font-size: 0.95rem;
+      color: var(--accent-dark);
+      padding: 10px 0;
+      font-weight: 700;
+      text-align: center;
+      min-height: 24px;
+      display: none;
+    }
+    .result-feedback.show { display: block; }
+    .nav-buttons {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+    .nav-btn {
+      background: none;
+      border: none;
+      color: #999;
+      font-size: 1.8rem;
+      cursor: pointer;
+      opacity: 0.3;
+      transition: opacity 0.2s;
+      padding: 8px 12px;
+      pointer-events: auto;
+    }
+    .nav-btn.active {
+      opacity: 0.9;
+      color: var(--blue);
+    }
+
+    /* pulsanti principali in #050a30 */
+    .next-btn {
+      background: #050a30;
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+      transition: all 0.1s;
+      pointer-events: auto;
+    }
+    .next-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.35);
+    }
+    .next-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .completion-screen {
+      text-align: center;
+      padding: 40px 20px;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .completion-screen h2 {
+      font-size: 1.8rem;
+      color: var(--accent-dark);
+      margin: 20px 0;
+    }
+    .completion-screen p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin: 10px 0 30px;
+    }
+
+    .bottom-buttons {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-start; /* Menu a sinistra */
+      max-width: 388px;
+      margin: 0 auto;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .btn-back {
+      background: #050a30; /* stesso colore dei bottoni principali */
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.35);
+      transition: all 0.1s;
+    }
+    .btn-back:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.4);
+    }
+
+    #imageLightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 9999;
+    }
+    .lightbox-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+    }
+    .lightbox-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-size: 1.8rem;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    @media (max-width: 700px) {
+      .app-shell { max-width: 99vw; }
+      .pagina { padding: 16px 14px 110px 14px; min-height: 320px; }
+      .next-btn { padding: 14px 28px; font-size: 1rem; }
+      .welcome-screen { padding: 40px 16px 40px 16px; }
+      .menu-screen { padding: 30px 16px 80px 16px; }
+      .test-choice-screen { padding: 30px 16px 80px 16px; }
+      .quiz-screen { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="header-title" onclick="goToWelcome()">Bridge Quinta Nobile</div>
+    <div class="header-sub" id="headerSub"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
+
+    <!-- WELCOME -->
+    <div class="screen active" id="welcomeScreen">
+      <div class="welcome-screen">
+        <div class="welcome-hero-card">
+          <img
+            src="https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/splashscreen.png"
+            alt="Logo Bridge Quinta Nobile"
+            class="welcome-hero-logo">
+        </div>
+
+        <h1 class="welcome-big-headline">
+          Impara la Quinta Nobile di Bridge passo passo
+        </h1>
+
+        <p class="welcome-text">
+          Scopri i concetti fondamentali del sistema di dichiarazione in Bridge con sezioni di studio dedicate e quiz per testare la tua conoscenza. 
+        </p>
+
+        <button class="next-btn welcome-cta" onclick="goToMenu()">Comincia</button>
+      </div>
+    </div>
+
+    <!-- MENU PRINCIPALE -->
+    <div class="screen" id="menuScreen">
+      <div class="menu-screen">
+        <h1>Scegli il tuo percorso</h1>
+        <p class="subtitle">Testa le tue conoscenze o studia gli argomenti</p>
+
+        <div class="menu-btn" onclick="goToStudyMenu()">
+          <div class="emoji">📚</div>
+          <div class="content">
+            <div class="title">Studia le basi</div>
+            <div class="desc">Scegli il modulo da studiare</div>
+          </div>
+        </div>
+
+        <div class="menu-btn" onclick="goToTestChoice()">
+          <div class="emoji">🎯</div>
+          <div class="content">
+            <div class="title">Comincia i test</div>
+            <div class="desc">Scegli tra diversi tipi di test per verificare le tue conoscenze</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCELTA MODULO DI STUDIO -->
+    <div class="screen" id="studyMenuScreen">
+      <div class="test-choice-screen">
+        <h1>Scegli il modulo di studio</h1>
+
+        <div class="menu-btn" onclick="goToStudyModulo(1)">
+          <div class="emoji">📘</div>
+          <div class="content">
+            <div class="title">Studia Modulo 1</div>
+            <div class="desc">Quinta Nobile – concetti base</div>
+          </div>
+        </div>
+
+        <div class="menu-btn" style="opacity: 0.5; cursor: not-allowed;">
+          <div class="emoji">📙</div>
+          <div class="content">
+            <div class="title">Studia Modulo 2</div>
+            <div class="desc">In arrivo</div>
+          </div>
+        </div>
+
+        <div class="menu-btn" style="opacity: 0.5; cursor: not-allowed;">
+          <div class="emoji">📗</div>
+          <div class="content">
+            <div class="title">Studia Modulo 3</div>
+            <div class="desc">In arrivo</div>
+          </div>
+        </div>
+
+        <div class="menu-btn" style="opacity: 0.5; cursor: not-allowed;">
+          <div class="emoji">📕</div>
+          <div class="content">
+            <div class="title">Studia Modulo 4</div>
+            <div class="desc">In arrivo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIPO DI TEST -->
+    <div class="screen" id="testChoiceScreen">
+      <div class="test-choice-screen">
+        <h1>Scegli il tipo di test</h1>
+
+        <div class="menu-btn" onclick="goToQuiz()">
+          <div class="emoji">❓</div>
+          <div class="content">
+            <div class="title">Test a risposte multiple</div>
+            <div class="desc">15 domande teoriche per testare le tue conoscenze</div>
+          </div>
+        </div>
+
+        <div class="menu-btn" onclick="goToGuessLicita1()">
+          <div class="emoji">🎲</div>
+          <div class="content">
+            <div class="title">Indovina la licita 1</div>
+            <div class="desc">7 esercizi con tre opzioni di risposta</div>
+          </div>
+        </div>
+
+        <div class="menu-btn" onclick="goToGuessLicita2()">
+          <div class="emoji">✨</div>
+          <div class="content">
+            <div class="title">Indovina la licita 2</div>
+            <div class="desc">7 esercizi con bottone “Mostra risposta”</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDY MODULO 1 -->
+    <div class="screen" id="studyScreen">
+      <div class="study-screen">
+        <h1>Materiale di studio</h1>
+        <p class="subtitle">Modulo 1 – I 15 argomenti della Quinta Nobile</p>
+        <div class="study-cards" id="studyCards"></div>
+      </div>
+    </div>
+
+    <!-- QUIZ TEORICO -->
+    <div class="screen" id="quizScreen">
+      <div class="quiz-screen">
+        <h1>Test a risposte multiple</h1>
+        <p class="subtitle" id="quizSubtitle"></p>
+        <div id="quiz"></div>
+      </div>
+    </div>
+
+    <!-- GUESS 1 -->
+    <div class="screen" id="guessLicitaScreen1">
+      <div class="quiz-screen">
+        <div id="guessLicita1"></div>
+      </div>
+    </div>
+
+    <!-- GUESS 2 -->
+    <div class="screen" id="guessLicitaScreen2">
+      <div class="quiz-screen">
+        <div id="guessLicita2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-buttons" id="bottomButtons" style="display: none;">
+    <button class="btn-back" onclick="goToMenu()">← Menu</button>
+  </div>
+
+  <div id="imageLightbox">
+    <div class="lightbox-backdrop" onclick="closeLightbox()"></div>
+    <div class="lightbox-content">
+      <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+      <img id="lightboxImage" src="" alt="Immagine ingrandita">
+    </div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        titolo: "Cos'è la Quinta Nobile?",
+        modulo: 1,
+        descrizioneStudio: `Il sistema è detto "5ª Nobile" - (Quadri quarte, Fiori di preparazione). Si può aprire in un nobile solo se è 5°. Nel classico "lungo-corto", se si possiedono 2 colori si apre con il seme più lungo, altrimenti con il più economico.... Il mazzo ha 52 carte in 4 semi (Fiori, Quadri, Cuori, Picche), con rango crescente. 40 punti totali: 10 punti per ogni seme. Valori: Asso=4, Re=3, Donna=2, Fante=1.`,
+        domanda: "Qual è la caratteristica principale del sistema \"quinta nobile\"?",
+        risposte: [
+          "Si apre nei nobili solo con almeno 5 carte.",
+          "Si apre sempre nel seme più basso.",
+          "Si apre solo con mani bilanciate."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Quadri quarte e Fiori di preparazione",
+        modulo: 1,
+        descrizioneStudio: `Quando non si possiede una quinta nobile, si valuta la presenza di 4 carte nel seme di Fiori, se negativo si controlla il seme di Quadri (4 carte). 
+
+Se non si possiedono né 4 carte di Fiori né 4 carte di Quadri si apre di 1 Fiori anche con sole 2 carte (Fiori preparatorio).`,
+        domanda: "Quando si apre 1♦ (Quadri) invece di 1♣ (Fiori)?",
+        risposte: [
+          "Quando non si ha nessun nobile quinto e neanche 4 carte di Fiori.",
+          "Quando si hanno almeno 4 Fiori.",
+          "Solo se si ha un fit a Quadri."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Punteggio e valore delle carte",
+        modulo: 1,
+        descrizioneStudio: `I punti onore (p.o.) sono la valutazione convenzionale delle carte secondo il loro rango:
+• Asso = 4 punti
+• Re = 3 punti
+• Donna = 2 punti
+• Fante = 1 punto... Il totale dei 40 punti nel mazzo è distribuito: 10 punti per ogni seme. La somma dei p.o. della propria mano determina la forza della dichiarazione.`,
+        domanda: "Quanto vale un asso nei punti onore del bridge?",
+        risposte: [
+          "4 punti.",
+          "3 punti.",
+          "1 punto."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Requisiti per l'apertura",
+        modulo: 1,
+        descrizioneStudio: `Ogni giocatore ha in mano 13 carte. Per aprire a livello di 1 servono almeno 12 p.o. (24-25 p.o. per la manche fra i due giocatori). 
+
+Ordine di priorità:
+1ª scelta: Contratti a atout nei colori nobili 
+2ª scelta: Contratti a Senza Atout
+3ª scelta: Contratti a atout nei semi minori
+
+Se apre di 1 Picche, l'apertore si impegna a fare 7 prese. Gioca il contratto colui che per primo ha licitato il colore. L'attacco è dato dal giocatore alla sinistra di chi gioca il contratto.`,
+        domanda: "Con quanti punti onore minimi si può aprire a livello di 1?",
+        risposte: [
+          "12 punti.",
+          "8 punti.",
+          "16 punti."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Ordine di priorità nei contratti",
+        modulo: 1,
+        descrizioneStudio: `Il sistema 5ª Nobile ha 2 fasi: licitazione e gioco della carta.
+
+LICITAZIONE: scambio di informazioni per raggiungere un contratto ottimale (forza in p.o. e distribuzione).
+
+SCALA LICITATIVA: 35 scalini (5 gradini per ogni livello). Si può solo salire e mai scendere.
+
+SCOPO: trovare il fit (almeno 8 carte) in un seme nobile e giocare con briscola (atout) Cuori o Picche; altrimenti a Senza Atout.`,
+        domanda: "Qual è il contratto preferito?",
+        risposte: [
+          "Contratto a atout in un seme nobile (Cuori o Picche).",
+          "Contratto a Senza Atout.",
+          "Contratto a atout nei minori."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Fit nei nobili",
+        modulo: 1,
+        descrizioneStudio: `Il fit è quando la coppia ha almeno 8 carte totali in uno stesso seme. Il fit è l'obiettivo primario della licitazione perché permette di giocare il contratto in atout.
+
+Senza fit nei nobili, si gioca preferibilmente, quando si hanno fermi in tutti i semi, a Senza Atout.`,
+        domanda: "Cosa significa \"fit in un nobile\"?",
+        risposte: [
+          "Che la linea ha almeno 8 carte in quel seme nobile.",
+          "Che si hanno almeno 8 punti onore.",
+          "Che si apre con 4 carte."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Apertura 1 a colore",
+        modulo: 1,
+        descrizioneStudio: `Da 12 a 21 punti si apre a livello di 1 (1Fiori, 1Quadri, 1Cuori, 1Picche).
+
+Con 2 colori si apre nel seme più lungo. Con lunghezze uguali, si sceglie il più economico (di rango inferiore). Esempi:
+• 5♥ e 4♠ → apri 1♥
+• 5♠ e 4♥ → apri 1♠
+• 4♥ e 4♠ → apri 1♥ (il più economico tra i nobili)
+
+Con apertura di 1 a colore si prepara la ricerca del fit e del contratto a atout.`,
+        domanda: "Con quale seme si apre se si hanno 5 carte a Picche e 4 carte a Cuori?",
+        risposte: [
+          "Si apre 1♠ (Picche).",
+          "Si apre 1♥ (Cuori).",
+          "Si apre 1SA."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Apertura 1SA",
+        modulo: 1,
+        descrizioneStudio: `Si apre di 1SA con mano bilanciata e 16-18 p.o.
+
+Il rispondente:
+• Con meno di 8 punti passa (16+6=22: niente manche)
+• Con 8 p.o. interessato in un seme nobile interroga con 2Fiori
+• Senza interesse in un nobile dichiara 2SA (invito)
+   → L'apertore con 17/18 chiude a 3SA, altrimenti passa
+
+Con fit in un nobile si gioca in atout. Per la manche servono 24-25 p.o. totali.`,
+        domanda: "Quanti punti servono per aprire 1SA con una mano bilanciata?",
+        risposte: [
+          "16-18 punti.",
+          "12-14 punti.",
+          "20-22 punti."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Il rispondente: obbligo di dichiarare",
+        modulo: 1,
+        descrizioneStudio: `Il rispondente con 4 punti in mano è obbligato a dichiarare (21+4=25).
+
+Su apertura di 1Fiori il rispondente dichiara a livello di 1 secondo la scala licitativa: 1Quadri / 1Cuori / 1Picche / 1SA.
+
+Le dichiarazioni del rispondente possono essere:
+• FORZANTI: cambio di colore (unica risposta forzante)
+• NON FORZANTI: appoggi nel seme dell'apertore, 1SA, 2SA.`,
+        domanda: "Con almeno quanti punti il rispondente è obbligato a dichiarare?",
+        risposte: [
+          "4 punti onore.",
+          "8 punti.",
+          "Solo con fit."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Risposte forzanti e non forzanti",
+        modulo: 1,
+        descrizioneStudio: `L'unica risposta forzante del rispondente è il cambio di colore. Tutte le altre sono non forzanti.
+
+Gli appoggi nel seme dell'apertore sono non forzanti.
+
+Per la manche occorrono 24-25 p.o. totali. Tutti gli altri sono contratti parziali.
+
+La risposta 2 su 1 è forcing manche (es: 1Cuori/2Fiori – 1Picche/2Cuori).`,
+        domanda: "Qual è una risposta forzante del rispondente?",
+        risposte: [
+          "Cambio di colore (ad es. 1Quadri/1Cuori - 1Cuori/1Picche).",
+          "Appoggio semplice nel seme dell'apertore.",
+          "Passo."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Appoggi semplici, a salto, a manche",
+        modulo: 1,
+        descrizioneStudio: `Gli appoggi mostrano fit nel seme dell'apertore:... • Appoggio semplice (es: 1♠ → 2♠): 4–9 p.o., non forzante
+• Appoggio a salto (es: 1♠ → 3♠): 10–11 p.o., invito a manche
+• Appoggio a manche (es: 1♠ → 4♠): 12–15 p.o.
+
+Per la manche occorrono 24–25 p.o. totali; gli altri sono parziali.`,
+        domanda: "Cosa significa un appoggio semplice (a livello 2) nel seme dell'apertore?",
+        risposte: [
+          "4–9 punti onore, fit a quel seme.",
+          "10–11 punti.",
+          "Dichiarazione forzante."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "La dichiarazione \"2 su 1\"",
+        modulo: 1,
+        descrizioneStudio: `La risposta 2 su 1 è forcing manche. Esempi:
+• 1Cuori → 2Fiori
+• 1Picche → 2Cuori
+
+Questa dichiarazione obbliga la coppia a non fermarsi in parziale e punta al contratto di manche (circa 25–26 p.o.).... Comunica:
+1. Almeno 12 p.o.
+2. Nuovo colore
+3. Interesse alla manche.`,
+        domanda: "Cosa indica la dichiarazione \"2 su 1\" (es. 1♠–2♣)?",
+        risposte: [
+          "È forcing manche, non ci si ferma in parziale.",
+          "Mostra una mano debole.",
+          "Segnala fit immediato."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Repliche dell'apertore",
+        modulo: 1,
+        descrizioneStudio: `Le repliche dell'apertore dipendono da forza e distribuzione.
+
+A) Appoggio nel seme del rispondente:
+• Semplice: 12–15 p.o.
+• A salto: 17–21 p.o.
+
+B) Nuovo colore:
+• Diritto (12–15 p.o.): nuovo colore a livello 2 che non supera il 2 del primo colore.
+• Rovescio / reverse (17–21 p.o.): nuovo colore che supera il 2 del primo colore.
+
+C) Monocolore 5332 e 16–21 p.o.:
+• 16–18 p.o. → 2SA
+• 19–21 p.o. → 3SA.`,
+        domanda: "Quando l'apertore dichiara un nuovo colore \"a rovescio\" (reverse)?",
+        risposte: [
+          "Quando il nuovo colore supera il 2 del primo colore dichiarato.",
+          "Quando il compagno ha passato.",
+          "Solo con un seme minore."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Interventi e \"contro\"",
+        modulo: 1,
+        descrizioneStudio: `L'intervento base è il contro.
+
+Con più di 18 p.o. non sono richiesti particolari requisiti di distribuzione.
+
+Requisiti tipici:
+• Si contra 1Cuori con almeno 4 Picche e 12–18 p.o.
+• Si contra 1Picche con almeno 4 Cuori.
+
+Il compagno di chi ha contratto:
+• Colore a livello minimo: 0–9 p.o. (non forzante)
+        • Colore a salto a livello 2: 5–7 carte, 7–10 p.o. (non forzante)
+• Manche: mano rivalutata, 10–13 p.o.
+• 1SA: 8–10 p.o.; 2SA: 10–11 p.o.
+
+L'unica dichiarazione forzante dopo contro è la surlicita del colore dell'apertore (invito a manche).`,
+        domanda: "Quando si può intervenire con \"contro\" su 1Cuori o 1Picche?",
+        risposte: [
+          "Con almeno 12 punti e 4 carte nell'altro nobile.",
+          "Solo con 20 punti.",
+          "Solo con doppio fit."
+        ],
+        corretta: 0
+      },
+      {
+        titolo: "Avvicinamento a slam",
+        modulo: 1,
+        descrizioneStudio: `Per dichiarare slam servono circa:
+• 33–34 punti a colore
+• 35–36 punti a Senza Atout
+
+È fondamentale che gli avversari non possano incassare prese immediate. Serve quindi conoscere i controlli nei semi.
+
+Differenza tra controllo e fermo:
+• QJ10 è un fermo ma non un controllo (non impedisce 2 prese rapide).
+
+CONTROLLI:
+• Asso o vuoto = controllo di 1° giro
+• Re o singolo = controllo di 2° giro
+
+Tecniche:
+1) Cue-bid di controllo
+2) Blackwood 4SA per chiedere il numero di assi (e poi di re).`,
+        domanda: "Quando ha senso puntare allo slam?",
+        risposte: [
+          "Quando la linea ha almeno 33/34 punti e controlli in tutti i semi.",
+          "Solo con tutte carte dello stesso seme.",
+          "Solo se si hanno 8 atout."
+        ],
+        corretta: 0
+      }
+    ];
+
+    const immaginiBase = [
+      {
+        id: "img1",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita01.png",
+        domanda: "Su apertura di 1 Fiori, risposta 1 Cuori, con queste carte l’apertore cosa licita?",
+        risposte: ["2 Cuori", "1 Picche", "3 Cuori"],
+        corretta: 0
+      },
+      {
+        id: "img2",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita02.png",
+        domanda: "Su apertura di 1 Quadri, cosa si risponde con queste carte?",
+        risposte: ["1 Cuori", "1 SA", "2 Quadri"],
+        corretta: 0
+      },
+      {
+        id: "img3",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita03.png",
+        domanda: "Su apertura di 1 Cuori e risposta forzante (1 Picche) del rispondente, cosa si risponde con queste carte?",
+        risposte: ["3 Fiori", "2 SA", "2 Fiori"],
+        corretta: 0
+      },
+      {
+        id: "img4",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita04.png",
+        domanda: "Su apertura di 1 Quadri e risposta forzante (1 Cuori) del rispondente, cosa si risponde con queste carte?",
+        risposte: ["2 Picche", "1 SA", "2 Quadri"],
+        corretta: 0
+      },
+      {
+        id: "img5",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita05.png",
+        domanda: "Su apertura di 1 Picche e risposta non-forzante (1 SA) del rispondente, cosa si risponde con queste carte?",
+        risposte: ["3 Cuori", "3 SA", "2 Cuori"],
+        corretta: 0
+      },
+      {
+        id: "img6",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita06.png",
+        domanda: "Dopo risposta 1 su 1, l’apertore con questa mano cosa dichiara?",
+        risposte: ["3 SA", "2 Picche", "2 Cuori"],
+        corretta: 0
+      },
+      {
+        id: "img7",
+        modulo: 1,
+        immagine: "https://raw.githubusercontent.com/Phapho21/bridge-quinta-nobile-assets/main/licita01_png/licita07.png",
+        domanda: "Su risposta 1 (1 SA) su 1 (1 Picche), l’apertore con questa mano cosa dichiara?",
+        risposte: ["2 SA", "1 SA", "2 Picche"],
+        corretta: 0
+      }
+    ];
+
+    const guessLicita1Data = immaginiBase.map((q, idx) => ({
+      ...q,
+      id: `M${idx + 1}`,
+      tipo: "multiple"
+    }));
+
+    const guessLicita2Data = immaginiBase
+      .map((q, idx) => ({ ...q, id: `R${idx + 1}`, tipo: "reveal" }))
+      .sort(() => Math.random() - 0.5);
+
+    const quiz = quizData.map(q => {
+      const risposteConIndici = q.risposte.map((r, idx) => ({ testo: r, indiceOriginale: idx }));
+      risposteConIndici.sort(() => Math.random() - 0.5);
+      const risposteMessolate = risposteConIndici.map(r => r.testo);
+      const nuovaCorretta = risposteConIndici.findIndex(r => r.indiceOriginale === q.corretta);
+      return { ...q, risposte: risposteMessolate, corretta: nuovaCorretta };
+    });
+
+    let paginaCorrente = 0;
+    let testType = 'quiz';
+    let answerRevealed = {};
+
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+      document.getElementById('bottomButtons').style.display = 'none';
+      document.getElementById('progressBar').style.width = '0%';
+    }
+
+    function goToWelcome() {
+      showScreen('welcomeScreen');
+      document.getElementById('headerSub').textContent = '';
+    }
+    function goToMenu() {
+      showScreen('menuScreen');
+      document.getElementById('headerSub').textContent = 'Impara la Quinta Nobile di Bridge passo passo';
+    }
+
+    function goToStudyMenu() {
+      showScreen('studyMenuScreen');
+      document.getElementById('headerSub').textContent =
+        'Scegli il modulo di studio • Bridge Quinta Nobile';
+    }
+
+    function goToStudyModulo(modulo) {
+      if (modulo === 1) {
+        showScreen('studyScreen');
+        renderStudy();
+        document.getElementById('bottomButtons').style.display = 'flex';
+        document.getElementById('headerSub').textContent =
+          'Materiale di studio – Modulo 1 • Bridge Quinta Nobile';
+      }
+    }
+
+    function goToTestChoice() {
+      showScreen('testChoiceScreen');
+      document.getElementById('headerSub').textContent = 'Scegli il tipo di test • Bridge Quinta Nobile';
+    }
+    function goToQuiz() {
+      testType = 'quiz';
+      showScreen('quizScreen');
+      renderQuiz();
+      document.getElementById('bottomButtons').style.display = 'flex';
+      document.getElementById('headerSub').textContent = 'Quiz interattivo • Bridge Quinta Nobile';
+    }
+    function goToGuessLicita1() {
+      testType = 'guess1';
+      showScreen('guessLicitaScreen1');
+      renderGuessLicita('guessLicita1', guessLicita1Data);
+      document.getElementById('bottomButtons').style.display = 'flex';
+      document.getElementById('headerSub').textContent = 'Indovina la licita 1 • Bridge Quinta Nobile';
+    }
+    function goToGuessLicita2() {
+      testType = 'guess2';
+      showScreen('guessLicitaScreen2');
+      renderGuessLicita('guessLicita2', guessLicita2Data);
+      document.getElementById('bottomButtons').style.display = 'flex';
+      document.getElementById('headerSub').textContent = 'Indovina la licita 2 • Bridge Quinta Nobile';
+    }
+
+    function renderStudy() {
+      let html = '';
+      quizData.forEach((q, i) => {
+        html += `
+        <div class="study-card">
+          <div class="number">Argomento ${i + 1}</div>
+          <div class="title">${q.titolo}</div>
+          <div class="description">${q.descrizioneStudio}</div>
+        </div>`;
+      });
+      document.getElementById('studyCards').innerHTML = html;
+      document.getElementById('progressBar').style.width = '100%';
+    }
+
+    function renderQuiz() {
+      let html = '';
+      for(let i = 0; i < quiz.length; i++) {
+        html += `
+        <div class="pagina" id="pagina${i}">
+          <div class="pagina-header">
+            <div class="modulo-label">Modulo ${quiz[i].modulo}</div>
+            <div class="progress">${i + 1} / ${quiz.length}</div>
+          </div>
+          <div class="pagina-title">${quiz[i].titolo}</div>
+          <div class="domanda">${quiz[i].domanda}</div>
+          <div class="choices" id="choices${i}">
+            ${quiz[i].risposte.map((ans, j) => `
+              <button class="choice-btn" id="choice${i}_${j}" onclick="selectChoice(${i}, ${j})">${ans}</button>
+            `).join('')}
+          </div>
+          <div class="result-feedback" id="feedback${i}"></div>
+          <div class="nav-buttons">
+            <button class="nav-btn" id="btn-prev${i}" onclick="vaiPrev()" title="Indietro">←</button>
+            <button class="next-btn" id="btn-next${i}" onclick="vaiProssima()" disabled>AVANTI</button>
+          </div>
+        </div>`;
+      }
+      document.getElementById('quiz').innerHTML = html;
+      document.getElementById('quizSubtitle').textContent = '';
+      showPage(0);
+    }
+
+    function renderGuessLicita(containerId, data) {
+      let html = '';
+      for(let i = 0; i < data.length; i++) {
+        const isMultiple = data[i].tipo === 'multiple';
+        if (isMultiple) {
+          html += `
+          <div class="pagina" id="${containerId}-pagina${i}">
+            <div class="pagina-header">
+              <div class="modulo-label">Modulo 1</div>
+              <div class="progress">${i + 1} / ${data.length}</div>
+            </div>
+            <div class="pagina-image-wrapper">
+              <img class="pagina-image" src="${data[i].immagine}" alt="Carte da bridge"
+                   onclick="openLightbox('${data[i].immagine}')" />
+            </div>
+            <div class="pagina-title">${data[i].domanda}</div>
+            <div class="choices" id="${containerId}-choices${i}">
+              ${data[i].risposte.map((ans, j) => `
+                <button class="choice-btn" id="${containerId}-choice${i}_${j}" onclick="selectChoiceLicita('${containerId}', ${i}, ${j})">${ans}</button>
+              `).join('')}
+            </div>
+            <div class="result-feedback" id="${containerId}-feedback${i}"></div>
+            <div class="nav-buttons">
+              <button class="nav-btn" id="${containerId}-btn-prev${i}" onclick="vaiPrev()" title="Indietro">←</button>
+              <button class="next-btn" id="${containerId}-btn-next${i}" onclick="vaiProssima()" disabled>AVANTI</button>
+            </div>
+          </div>`;
+        } else {
+          html += `
+          <div class="pagina" id="${containerId}-pagina${i}">
+            <div class="pagina-header">
+              <div class="modulo-label">Modulo 1</div>
+              <div class="progress">${i + 1} / ${data.length}</div>
+            </div>
+            <div class="pagina-image-wrapper">
+              <img class="pagina-image" src="${data[i].immagine}" alt="Carte da bridge"
+                   onclick="openLightbox('${data[i].immagine}')" />
+            </div>
+            <div class="pagina-title">${data[i].domanda}</div>
+            <div class="reveal-section">
+              <button class="reveal-btn" onclick="revealAnswer('${containerId}', ${i})">
+                Mostra risposta
+              </button>
+              <div class="answer-box" id="${containerId}-answer${i}">
+                <div class="answer-title">Risposta corretta</div>
+                <div class="answer-text">${data[i].risposte[data[i].corretta]}</div>
+              </div>
+            </div>
+            <div class="nav-buttons">
+              <button class="nav-btn" id="${containerId}-btn-prev${i}" onclick="vaiPrev()" title="Indietro">←</button>
+              <button class="next-btn" id="${containerId}-btn-next${i}" onclick="vaiProssima()" disabled>AVANTI</button>
+            </div>
+          </div>`;
+        }
+      }
+      document.getElementById(containerId).innerHTML = html;
+      paginaCorrente = 0;
+      showGuessPage(containerId, 0, data.length);
+    }
+
+    function selectChoice(p, c) {
+      const correctIndex = quiz[p].corretta;
+      const buttons = document.querySelectorAll(`#choices${p} .choice-btn`);
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        btn.classList.remove('selected', 'correct', 'incorrect');
+        if (idx === correctIndex) {
+          btn.classList.add('correct');
+        }
+      });
+      const chosenBtn = document.getElementById(`choice${p}_${c}`);
+      if (c !== correctIndex) {
+        chosenBtn.classList.add('incorrect');
+        document.getElementById(`feedback${p}`).textContent = "Risposta sbagliata.";
+      } else {
+        document.getElementById(`feedback${p}`).textContent = "Corretto!";
+      }
+      document.getElementById(`feedback${p}`).classList.add('show');
+      document.getElementById(`btn-next${p}`).disabled = false;
+    }
+
+    function selectChoiceLicita(containerId, p, c) {
+      const data = containerId === 'guessLicita1' ? guessLicita1Data : guessLicita2Data;
+      const correctIndex = data[p].corretta;
+      const buttons = document.querySelectorAll(`#${containerId}-choices${p} .choice-btn`);
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        btn.classList.remove('selected', 'correct', 'incorrect');
+        if (idx === correctIndex) {
+          btn.classList.add('correct');
+        }
+      });
+      const chosenBtn = document.getElementById(`${containerId}-choice${p}_${c}`);
+      if (c !== correctIndex) {
+        chosenBtn.classList.add('incorrect');
+        document.getElementById(`${containerId}-feedback${p}`).textContent = "Risposta sbagliata.";
+      } else {
+        document.getElementById(`${containerId}-feedback${p}`).textContent = "Corretto!";
+      }
+      document.getElementById(`${containerId}-feedback${p}`).classList.add('show');
+      document.getElementById(`${containerId}-btn-next${p}`).disabled = false;
+    }
+
+    function revealAnswer(containerId, p) {
+      const key = `${containerId}-${p}`;
+      if (!answerRevealed[key]) {
+        answerRevealed[key] = true;
+      }
+      document.getElementById(`${containerId}-answer${p}`).classList.add('show');
+      document.getElementById(`${containerId}-btn-next${p}`).disabled = false;
+    }
+
+    function showPage(n) {
+      paginaCorrente = n;
+      const pages = document.querySelectorAll('#quiz .pagina');
+      pages.forEach((p, idx) => p.classList.toggle('active', idx === n));
+      const progress = ((n) / pages.length) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+    }
+
+    function showGuessPage(containerId, n, total) {
+      paginaCorrente = n;
+      const pages = document.querySelectorAll(`#${containerId} .pagina`);
+      pages.forEach((p, idx) => p.classList.toggle('active', idx === n));
+      const progress = ((n) / total) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+    }
+
+    function vaiProssima() {
+      if (testType === 'quiz') {
+        const total = quiz.length;
+        if (paginaCorrente < total - 1) {
+          showPage(paginaCorrente + 1);
+        } else {
+          alert("Hai completato il quiz!");
+        }
+      } else {
+        const data = testType === 'guess1' ? guessLicita1Data : guessLicita2Data;
+        const containerId = testType === 'guess1' ? 'guessLicita1' : 'guessLicita2';
+        if (paginaCorrente < data.length - 1) {
+          showGuessPage(containerId, paginaCorrente + 1, data.length);
+        } else {
+          alert("Hai completato il test!");
+        }
+      }
+    }
+
+    function vaiPrev() {
+      if (testType === 'quiz') {
+        if (paginaCorrente > 0) {
+          showPage(paginaCorrente - 1);
+        }
+      } else {
+        const data = testType === 'guess1' ? guessLicita1Data : guessLicita2Data;
+        const containerId = testType === 'guess1' ? 'guessLicita1' : 'guessLicita2';
+        if (paginaCorrente > 0) {
+          showGuessPage(containerId, paginaCorrente - 1, data.length);
+        }
+      }
+    }
+
+    function openLightbox(src) {
+      const lb = document.getElementById('imageLightbox');
+      const img = document.getElementById('lightboxImage');
+      img.src = src;
+      lb.style.display = 'block';
+    }
+
+    function closeLightbox() {
+      document.getElementById('imageLightbox').style.display = 'none';
+    }
+
+    goToWelcome();
+  </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
